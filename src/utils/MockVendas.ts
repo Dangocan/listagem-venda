@@ -5,12 +5,12 @@ type TVendas = {
 };
 
 type TUpdateVendas = {
-  id?: number;
+  id: number;
   nome?: string;
   valor?: number;
 };
 
-export const mockVendas: TVendas[] = [
+const mockVendas: TVendas[] = [
   {
     id: 1,
     nome: "Venda 1",
@@ -28,26 +28,29 @@ export const mockVendas: TVendas[] = [
   },
 ];
 
-export const getVendas = async (): Promise<TVendas[]> => {
+const getVendas = async (): Promise<TVendas[]> => {
   return mockVendas;
 };
 
-export const getVenda = async (id: number): Promise<TVendas | undefined> => {
+const getVenda = async (id: number): Promise<TVendas | undefined> => {
   return mockVendas.find((venda) => venda.id === id);
 };
 
-export const createVenda = async (venda: TVendas): Promise<TVendas> => {
+const createVenda = async (venda: TVendas): Promise<TVendas> => {
   mockVendas.push(venda);
   return venda;
 };
 
-export const updateVenda = async (venda: TUpdateVendas): Promise<TVendas> => {
+const updateVenda = async (venda: TUpdateVendas): Promise<TVendas> => {
   const index = mockVendas.findIndex((v) => v.id === venda.id);
   mockVendas[index] = { ...mockVendas[index], ...venda };
   return venda as TVendas;
 };
 
-export const deleteVenda = async (id: number): Promise<void> => {
+const deleteVenda = async (id: number): Promise<void> => {
   const index = mockVendas.findIndex((v) => v.id === id);
   mockVendas.splice(index, 1);
 };
+
+export { getVendas, getVenda, createVenda, updateVenda, deleteVenda };
+export type { TVendas, TUpdateVendas };
