@@ -1,12 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { getVendas, TVendas } from "@/utils/MockVendas";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Sales() {
   const [data, setData] = useState<TVendas[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +32,10 @@ export default function Sales() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full">
+    <div className="flex flex-col items-start justify-center w-[90%] h-full ml-[5%]">
+      <Button className="mb-4" onClick={() => router.push("/nova-venda")}>
+        Novo
+      </Button>
       <DataTable columns={columns(handleUpdate, handleDelete)} data={data} />
     </div>
   );
