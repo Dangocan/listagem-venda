@@ -6,6 +6,7 @@ import { DataTable } from "./data-table";
 import { getVendas, TVendas } from "@/utils/MockVendas";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function Sales() {
   const [data, setData] = useState<TVendas[]>([]);
