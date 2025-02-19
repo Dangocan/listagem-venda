@@ -151,7 +151,7 @@ export const columns = (
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <Toaster className="bg-[#262E3F]" />
+          <Toaster theme="dark" />
         </>
       );
     },

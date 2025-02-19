@@ -95,7 +95,7 @@ export default function Sales() {
           </Button>
         </div>
       </div>
-      <Toaster className="bg-[#262E3F" />
+      <Toaster className="bg-[#000000" />
     </div>
   );
 }
