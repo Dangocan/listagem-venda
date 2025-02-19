@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Toaster } from "sonner";
+import { toast } from "sonner";
 
 export const columns = (
   onUpdate: (updatedVenda: TVendas) => void,
@@ -33,6 +35,7 @@ export const columns = (
   {
     accessorKey: "Id",
     header: "ID",
+    cell: ({ row }) => row.original.id.toString(),
   },
   {
     accessorKey: "nome",
@@ -72,13 +75,16 @@ export const columns = (
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem onSelect={() => setIsDialogOpen(true)}>
-                Edit Profile
+                Editar venda
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={async () => {
                   await deleteVenda(venda.id);
                   onDelete(venda.id);
+                  toast("Venda excluida com sucesso", {
+                    description: `Venda ${nome} no valor de R$ ${valor}`,
+                  });
                 }}
               >
                 <span className="text-red-600">Exluir</span>
@@ -89,10 +95,10 @@ export const columns = (
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Edit profile</DialogTitle>
+                <DialogTitle>Editar Venda</DialogTitle>
                 <DialogDescription>
-                  Make changes to your profile here. Click save when you're
-                  done.
+                  Faça mudanças na venda. Clique em salvar quando você
+                  finalizar.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
@@ -135,6 +141,9 @@ export const columns = (
                     });
                     onUpdate(updatedVenda);
                     setIsDialogOpen(false);
+                    toast("Venda editada com sucesso", {
+                      description: `Venda ${nome} no valor de R$ ${valor}`,
+                    });
                   }}
                 >
                   Save changes
@@ -142,6 +151,7 @@ export const columns = (
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          <Toaster className="bg-[#262E3F]" />
         </>
       );
     },

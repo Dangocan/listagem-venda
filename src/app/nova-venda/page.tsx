@@ -6,12 +6,16 @@ import { Label } from "@/components/ui/label";
 import { getVendas, TVendas, createVenda } from "@/utils/MockVendas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Sales() {
   const [data, setData] = React.useState<TVendas[]>([]);
   const [nome, setNome] = React.useState("");
   const [valor, setValor] = React.useState(0);
   const [id, setId] = React.useState(0);
+  const router = useRouter();
 
   React.useEffect(() => {
     getVendas().then((vendas) => setData(vendas));
@@ -73,10 +77,17 @@ export default function Sales() {
             type="button"
             className="mt-4"
             onClick={async () => {
-              const createdVenda = await createVenda({
+              await createVenda({
                 id: id,
                 nome,
                 valor,
+              }).then(() => {
+                toast("Venda salva com sucesso", {
+                  description: `Venda ${nome} no valor de R$ ${valor}`,
+                });
+                setTimeout(() => {
+                  router.push("/");
+                }, 1000);
               });
             }}
           >
@@ -84,6 +95,7 @@ export default function Sales() {
           </Button>
         </div>
       </div>
+      <Toaster className="bg-[#262E3F" />
     </div>
   );
 }
